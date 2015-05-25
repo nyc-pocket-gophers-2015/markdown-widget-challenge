@@ -6,20 +6,21 @@ var MarkdownWidget = {
 
 MarkdownWidget.controller.changeMD = function(text){
   var resultText = text;
-  var resultArray = []
-  resultText.split(" ").forEach(function(ele){
-    return resultArray.push(MarkdownWidget.controller.markdownTranslate(ele));
-  });
-  resultText = resultArray.join(" ")
-  MarkdownWidget.view.showMD(resultText);
+  // var resultArray = []
+  // resultText.split(" ").forEach(function(ele){
+  //   return resultArray.push(MarkdownWidget.controller.markdownTranslate(ele));
+  // });
+  // resultText = resultArray.join(" ")
+  // MarkdownWidget.controller.markdownTranslate(resultText)
+  MarkdownWidget.view.showMD(MarkdownWidget.controller.markdownTranslate(resultText));
   resultText = "";
 };
 
 MarkdownWidget.controller.markdownTranslate = function(text){
   // newText = ""
-  text = text.replace(/\*(.*?)\*/, "<em>" + text.substring(1,text.length-1) + "</em>");
-  text = text.replace(/_(.*?)_/, "<em>" + text.substring(1,text.length-1) + "</em>");
-  // text = text.replace(/\*\*(.*?)\*\*/, "<strong>" + text.substring(1,text.length-1) + "</strong>");
+  text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+  text = text.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+  text = text.replace(/_(.*?)_/g, "<em>$1</em>");
   console.log(text);
   return text
 };
