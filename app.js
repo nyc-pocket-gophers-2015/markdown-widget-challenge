@@ -1,13 +1,14 @@
 //models
 var rawText = {}
 rawText.text = ""
+rawText.ul = false;
 
 function formatHeader(text) {
   if(text[0] == "#") {
-    headerArray = ["h1", "h2", "h3", "h4","h5","h6"];
-    index = text.match(/^#*/)[0].length - 1;
-    console.log(index)
-    text = text.replace(text.match(/^#*/)[0],"");
+    var headerArray = ["h1", "h2", "h3", "h4","h5","h6"];
+    var headerText = text.match(/^#*/)[0]
+    var index = headerText.length - 1;
+    text = text.replace(headerText,"");
     return "<" + headerArray[index] + ">" + text + "</" + headerArray[index] + ">";
   }
 }
@@ -16,6 +17,36 @@ function checkHeader(text) {
   if(text[0] == "#") return true;
   else return false;
 }
+
+function formatList(text) {
+  var returnedText = ""
+  if(rawText.ul == false) {
+    returnedText += "<ul>";
+    rawText.ul = true;
+  }
+  text = text.replace("-","")
+  returnedText += "<li>" + text + "</li>"
+  return returnedText;
+}
+
+function checkList(text) {
+  if(text.substring(0,2) == "- ") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function checkCloseUl(text) {
+  if(checkList(text) == false && rawText.ul == true) {
+    rawText.ul = false;
+    console.log("stuff")
+    return "</ul>"
+  } else {
+    return ""
+  }
+}
+
 //views
 function displayPreview() {
   document.getElementById("preview_markdown").innerHTML = convertText()
@@ -29,8 +60,8 @@ function convertText() {
   var rawTextArray = rawText.split('\n');
   rawTextArray.forEach(function(text){
     if(checkHeader(text)) formattedText += formatHeader(text);
-    else formattedText += text + "<br>"
-
+    else if(checkList(text)) formattedText += formatList(text);
+    else formattedText += checkCloseUl(text) + text + "<br>"
   });
   return formattedText
 }
