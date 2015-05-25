@@ -1,0 +1,4 @@
+var MarkdownWidgetApp = {
+  view: {},
+  controller: {},
+};
