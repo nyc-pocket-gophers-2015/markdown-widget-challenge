@@ -18,11 +18,12 @@ MarkdownWidget.controller.changeMD = function(text){
 
 MarkdownWidget.controller.markdownTranslate = function(text){
   // newText = ""
-  text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-  text = text.replace(/\*([^*]+)\*/g, "<em>$1</em>");
-  text = text.replace(/_(.*?)_/g, "<em>$1</em>");
-  console.log(text);
-  return text
+  html_content = markdown.toHTML( text );
+  // text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+  // text = text.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+  // text = text.replace(/_(.*?)_/g, "<em>$1</em>");
+  // console.log(text);
+  return html_content
 };
 
 
