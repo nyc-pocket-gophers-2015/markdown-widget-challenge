@@ -10,11 +10,6 @@ MarkdownWidget.converter = function(sourceElem, outputElem) {
   outputElem.innerHTML = markdown.toHTML(this.text);
 };
 
-MarkdownWidget.italic = function(string) {
-  var stringArray = string.split('')
-  stringArray.forEach(element)
-};
-
 // View
 document.addEventListener('DOMContentLoaded', function(event){
   var userInput = document.getElementById('user_input')
