@@ -1,3 +1,11 @@
+//global functions
+String.prototype.insert = function (index, string) {
+  if (index > 0)
+    return this.substring(0, index) + string + this.substring(index, this.length);
+  else
+    return string + this;
+};
+
 //models
 var rawText = {}
 rawText.text = ""
@@ -47,6 +55,17 @@ function checkCloseUl(text) {
   }
 }
 
+function checkForItalics(text) {
+  var patt=/\*\s*(\S+?)\s*\*/g
+
+  while (match=patt.exec(text)) {
+    text = text.insert(patt.lastIndex, "</i>")
+    text = text.insert(match.index, "<i>")
+  }
+  console.log(text)
+  return text
+}
+
 //views
 function displayPreview() {
   document.getElementById("preview_markdown").innerHTML = convertText()
@@ -63,6 +82,7 @@ function convertText() {
     else if(checkList(text)) formattedText += formatList(text);
     else formattedText += checkCloseUl(text) + text + "<br>"
   });
+  formattedText = checkForItalics(formattedText);
   return formattedText
 }
 
