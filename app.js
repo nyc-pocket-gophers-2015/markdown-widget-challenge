@@ -7,16 +7,13 @@ MarkdownWidget.text = "";
 
 MarkdownWidget.converter = function(sourceElem, outputElem) {
   this.text = sourceElem.value;
-  this.text
-  outputElem.innerHTML = this.text;
+  outputElem.innerHTML = markdown.toHTML(this.text);
 };
 
 MarkdownWidget.italic = function(string) {
-  var stringArray = string.split(' ')
-  stringArray.forEach(element) {
-    if (element )
-  }
-}
+  var stringArray = string.split('')
+  stringArray.forEach(element)
+};
 
 // View
 document.addEventListener('DOMContentLoaded', function(event){
